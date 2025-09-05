@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: oilwells
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    command: npm run dev
+    volumes:
+      - ./backend:/usr/src/app
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: oilwells
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    command: npm start
+    volumes:
+      - ./frontend:/usr/src/app
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+
+volumes:
+  db_data:
