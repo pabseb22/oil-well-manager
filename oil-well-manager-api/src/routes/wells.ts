@@ -13,10 +13,30 @@ router.post("/", async (req, res) => {
   res.json(well);
 });
 
-router.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  await Well.update(req.body, { where: { id } });
-  res.json({ message: "Well updated" });
+router.patch("/:id", async (req, res) => {
+  try {
+    console.log(req.body)
+    const { id } = req.params;
+    const { status } = req.body;
+
+    if (!status) {
+      return res.status(400).json({ error: "Status is required" });
+    }
+
+    const [updated] = await Well.update(
+      { status },
+      { where: { id } }
+    );
+
+    if (updated === 0) {
+      return res.status(404).json({ error: "Well not found" });
+    }
+
+    return res.json({ message: "Well updated successfully" });
+  } catch (error) {
+    console.error("Error updating well:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 export default router;

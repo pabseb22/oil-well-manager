@@ -1,50 +1,20 @@
-<main class="main">
-  <h1 class="title">{{ title() }}</h1>
+<div class="layout">
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="logo">
+      <img src="assets/schlumberger-logo.png" alt="Schlumberger" />
+      <span>Oil Well Manager</span>
+    </div>
+    <div class="mode">Light Mode</div>
+  </header>
 
-  <!-- Estadísticas -->
-  <div class="stats">
-    <p-card header="Pozos Activos">
-      <h2>{{ activeWells }}</h2>
-    </p-card>
-    <p-card header="Pozos Inactivos">
-      <h2>{{ inactiveWells }}</h2>
-    </p-card>
-    <p-card header="Producción Total (bbl/día)">
-      <h2>{{ totalProduction }}</h2>
-    </p-card>
-  </div>
+  <!-- Contenido principal -->
+  <main class="content">
+    <app-well-manager class="manager-component"></app-well-manager>
+  </main>
 
-  <!-- Tabla -->
-  <p-card header="Listado de Pozos Petroleros">
-    <p-table [value]="wells" [paginator]="true" [rows]="5" responsiveLayout="scroll">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Ubicación</th>
-          <th>Estado</th>
-          <th>Producción</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-well>
-        <tr>
-          <td>{{ well.id }}</td>
-          <td>{{ well.name }}</td>
-          <td>{{ well.location }}</td>
-          <td>
-            <p-tag [severity]="well.status === 'Activo' ? 'success' : 'danger'">
-              {{ well.status }}
-            </p-tag>
-          </td>
-          <td>{{ well.production | number }} bbl</td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </p-card>
-  <p-card>
-    <app-well-manager></app-well-manager>
-  </p-card>
-</main>
-
-
-<router-outlet />
+  <!-- Footer -->
+  <footer class="footer">
+    Oil Well Manager © 2025
+  </footer>
+</div>

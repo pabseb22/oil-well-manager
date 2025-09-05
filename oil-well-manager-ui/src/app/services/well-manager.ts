@@ -7,7 +7,7 @@ import { Well } from '../models/Well';
   providedIn: 'root',
 })
 export class WellManagerService {
-  private baseUrl = 'http://backend:3000/wells';
+  private baseUrl = 'http://localhost:3000/wells';
 
   constructor(private http: HttpClient) { }
 
@@ -20,6 +20,7 @@ export class WellManagerService {
   }
 
   updateWellStatus(id: number, status: string): Observable<Well> {
-    return this.http.patch<Well>(`${this.baseUrl}/${id}/status`, { status });
+    return this.http.patch<Well>(`${this.baseUrl}/${id}`, { status });
   }
+
 }

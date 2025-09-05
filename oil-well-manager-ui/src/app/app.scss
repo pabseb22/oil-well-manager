@@ -1,24 +1,62 @@
-.main {
-  padding: 2rem;
+:host {
+  display: block;
+  height: 100vh;
 }
 
-.title {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.stats {
+.layout {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 2rem;
+  flex-direction: column;
+  height: 100%;
 
-  p-card {
-    flex: 1;
-    text-align: center;
-    h2 {
-      font-size: 2rem;
-      margin: 0;
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      img {
+        height: 40px;
+        width: auto;
+      }
+
+      span {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #1976d2;
+      }
     }
+
+    .mode {
+      color: #555;
+      font-size: 1rem;
+    }
+  }
+
+  .content {
+    flex: 1;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+
+    .manager-component {
+      flex: 1;
+      min-height: 400px;
+    }
+  }
+
+  .footer {
+    text-align: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    color: #555;
+    font-size: 0.9rem;
   }
 }

@@ -1,0 +1,80 @@
+$app-bg: #fff;
+$app-bar-bg: #f8f9fa;
+$app-shadow: rgba(0,0,0,0.03);
+$primary: #1976d2;
+$green: #388e3c;
+$red: #d81b60;
+
+.app-bar {
+  background: $app-bar-bg;
+  padding: 1rem;
+  box-shadow: 0 2px 4px $app-shadow;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $primary;
+  }
+
+  .mode-label {
+    font-size: 1rem;
+    color: #555;
+  }
+}
+
+.main {
+  background: $app-bg;
+  color: #222;
+  padding: 2rem;
+
+  .stats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+
+    .stat {
+      flex: 1;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+
+      &.active { background: #e3f2fd; color: $primary; }
+      &.inactive { background: #fce4ec; color: $red; }
+      &.production { background: #e8f5e9; color: $green; }
+
+      .label { font-weight: 500; margin-bottom: 0.5rem; display: block; }
+      .value { font-size: 2rem; }
+    }
+  }
+
+  .table-container {
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+
+    h2 { color: $primary; margin-bottom: 1rem; }
+
+    .well-table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th {
+        background: #e3f2fd;
+        text-align: left;
+        padding: 0.5rem;
+      }
+
+      td {
+        padding: 0.5rem;
+        border-bottom: 1px solid #eee;
+      }
+
+      .active-status { color: $green; font-weight: bold; }
+      .inactive-status { color: $red; font-weight: bold; }
+    }
+  }
+}
