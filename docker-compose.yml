@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   db:
     image: postgres:15
@@ -13,10 +12,10 @@ services:
       - db_data:/var/lib/postgresql/data
 
   backend:
-    build: ./backend
+    build: ./oil-well-manager-api
     command: npm run dev
     volumes:
-      - ./backend:/usr/src/app
+      - ./oil-well-manager-api:/usr/src/app
     ports:
       - "3000:3000"
     environment:
@@ -28,10 +27,10 @@ services:
       - db
 
   frontend:
-    build: ./frontend
+    build: ./oil-well-manager-ui
     command: npm start
     volumes:
-      - ./frontend:/usr/src/app
+      - ./oil-well-manager-ui:/usr/src/app
     ports:
       - "4200:4200"
     depends_on:

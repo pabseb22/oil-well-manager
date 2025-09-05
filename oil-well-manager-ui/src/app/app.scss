@@ -1,0 +1,24 @@
+.main {
+  padding: 2rem;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.stats {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  p-card {
+    flex: 1;
+    text-align: center;
+    h2 {
+      font-size: 2rem;
+      margin: 0;
+    }
+  }
+}

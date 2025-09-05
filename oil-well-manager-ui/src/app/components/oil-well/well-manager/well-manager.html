@@ -1,0 +1,55 @@
+    <div class="app-bar" style="background: #f8f9fa; padding: 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.03); display: flex; align-items: center; justify-content: space-between;">
+      <span style="font-size: 1.5rem; font-weight: 600; color: #1976d2;">Oil Well Manager</span>
+      <span style="color: #555; font-size: 1rem;">Light Mode</span>
+    </div>
+
+    <main class="main" style="background: #fff; color: #222; padding: 2rem;">
+      <!-- Estadísticas -->
+      <div class="stats" style="display: flex; gap: 2rem; margin-bottom: 2rem;">
+        <div style="background: #e3f2fd; border-radius: 8px; padding: 1rem; flex: 1; text-align: center;">
+      <div style="font-weight: 500; color: #1976d2;">Pozos Activos</div>
+      <div style="font-size: 2rem;">{{ activeWellsCount }}</div>
+        </div>
+        <div style="background: #fce4ec; border-radius: 8px; padding: 1rem; flex: 1; text-align: center;">
+      <div style="font-weight: 500; color: #d81b60;">Pozos Inactivos</div>
+      <div style="font-size: 2rem;">{{ inactiveWellsCount }}</div>
+        </div>
+        <div style="background: #e8f5e9; border-radius: 8px; padding: 1rem; flex: 1; text-align: center;">
+      <div style="font-weight: 500; color: #388e3c;">Producción Total (bbl/día)</div>
+      <div style="font-size: 2rem;">{{ totalProduction }}</div>
+        </div>
+      </div>
+
+      <!-- Tabla -->
+      <div style="background: #fafafa; border-radius: 8px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04);">
+        <h2 style="color: #1976d2; margin-bottom: 1rem;">Listado de Pozos Petroleros</h2>
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="background: #e3f2fd;">
+              <th style="padding: 0.5rem; text-align: left;">ID</th>
+              <th style="padding: 0.5rem; text-align: left;">Nombre</th>
+              <th style="padding: 0.5rem; text-align: left;">Ubicación</th>
+              <th style="padding: 0.5rem; text-align: left;">Estado</th>
+              <th style="padding: 0.5rem; text-align: left;">Producción</th>
+              <th style="padding: 0.5rem; text-align: left;">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let well of wells" style="border-bottom: 1px solid #eee;">
+              <td style="padding: 0.5rem;">{{ well.id }}</td>
+              <td style="padding: 0.5rem;">{{ well.name }}</td>
+              <td style="padding: 0.5rem;">{{ well.location }}</td>
+              <td style="padding: 0.5rem;">
+                <span [ngStyle]="{color: well.status === 'activo' ? '#388e3c' : '#d81b60', fontWeight: 'bold'}">
+                  {{ well.status === 'activo' ? 'Activo' : 'Inactivo' }}
+                </span>
+              </td>
+              <td style="padding: 0.5rem;">{{ well.daily_production | number }} bbl</td>
+              <td style="padding: 0.5rem;">
+                <button (click)="toggleStatus(well)" style="background: #1976d2; color: #fff; border: none; border-radius: 4px; padding: 0.3rem 0.8rem; cursor: pointer;">Cambiar estado</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
