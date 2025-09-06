@@ -4,9 +4,17 @@ import { Well } from "../models/Well";
 const router = Router();
 
 router.get("/", async (_, res) => {
-  const wells = await Well.findAll();
-  res.json(wells);
+  try {
+    const wells = await Well.findAll({
+      order: [["id", "ASC"]], // ASC = ascending, use "DESC" for reverse
+    });
+    res.json(wells);
+  } catch (error) {
+    console.error("Error fetching wells:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
+
 
 router.post("/", async (req, res) => {
   const well = await Well.create(req.body);

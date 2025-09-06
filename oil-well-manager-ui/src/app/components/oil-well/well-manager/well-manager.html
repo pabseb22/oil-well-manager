@@ -1,32 +1,38 @@
 <main class="main">
   <!-- Estadísticas -->
+   <p-toast></p-toast>
   <div class="stats">
     <div class="stat active">
       <div class="label">Pozos Activos</div>
-      <div class="value">{{ activeWellsCount }}</div>
+      <div class="value">{{ activeWellsCount }} <span style="font-size:0.95rem; color:#2563eb;">({{ activeWellsPercent }}%)</span></div>
     </div>
     <div class="stat inactive">
       <div class="label">Pozos Inactivos</div>
-      <div class="value">{{ inactiveWellsCount }}</div>
+      <div class="value">{{ inactiveWellsCount }} <span style="font-size:0.95rem; color:#ef4444;">({{ inactiveWellsPercent }}%)</span></div>
     </div>
     <div class="stat production">
-      <div class="label">Producción Total (bbl/día)</div>
-      <div class="value">{{ totalProduction }}</div>
+      <div class="label">Producción Activa Total</div>
+      <div class="value">
+        <span>{{ activeTotalProduction | productionUnit }}</span>
+      </div>
     </div>
   </div>
 
   <!-- Tabla -->
   <div class="table-container">
-    <h2>Listado de Pozos Petroleros</h2>
-    <p-card header="Listado de Pozos Petroleros">
-      <p-table [value]="wells" [paginator]="true" [rows]="5">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+      <h2 style="margin: 0;">Listado de Pozos Petroleros</h2>
+      <button pButton type="button" label="Nuevo Pozo" icon="pi pi-plus" class="p-button-success p-button-sm" (click)="openDialog()"></button>
+    </div>
+    <ng-container>
+      <p-table [value]="wells" [paginator]="true" [rows]="10" class="well-table" [loading]="loading">
         <ng-template pTemplate="header">
           <tr>
             <th>ID</th>
             <th>Nombre</th>
             <th>Ubicación</th>
             <th>Estado</th>
-            <th>Producción</th>
+            <th>Producción Diaria</th>
             <th>Acciones</th>
           </tr>
         </ng-template>
@@ -41,19 +47,53 @@
                 {{ well.status === 'activo' ? 'Activo' : 'Inactivo' }}
               </p-tag>
             </td>
-            <td>{{ well.daily_production | number }} bbl</td>
+            <td [wellStatusHighlight]="well.status">
+              <span>{{ well.daily_production | productionUnit }}</span>;
+              <span style="margin-left:0.5rem;">{{ well.daily_production | productionUnit:'gal' }}</span>;
+              <span style="margin-left:0.5rem;">{{ well.daily_production | productionUnit:'L' }}</span>
+            </td>
             <td>
               <button
                 pButton
                 type="button"
+                icon="pi pi-sync"
                 label="Cambiar estado"
-                class="p-button-sm p-button-primary"
+                variant="outlined"
+                class="p-button-outlined p-button-info"
                 (click)="toggleStatus(well)"
               ></button>
             </td>
           </tr>
         </ng-template>
       </p-table>
-    </p-card>
+    </ng-container>
+
+    <p-dialog header="Crear Nuevo Pozo" [(visible)]="showDialog" [modal]="true" [closable]="true" [dismissableMask]="true" [style]="{width: '400px'}" (onHide)="closeDialog()">
+      <form [formGroup]="wellForm" (ngSubmit)="createWell()" style="display: flex; flex-direction: column; gap: 1rem;">
+        <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+          <label for="name" style="font-weight: 500;">Nombre <span style="color: #ef4444;">*</span></label>
+          <input pInputText id="name" formControlName="name" required />
+          <div *ngIf="wellForm.get('name')?.invalid && wellForm.get('name')?.touched" style="color: #ef4444; font-size: 0.9rem;">
+            El nombre es obligatorio.
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+          <label for="location" style="font-weight: 500;">Ubicación</label>
+          <input pInputText id="location" formControlName="location" />
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+          <label for="daily_production" style="font-weight: 500;">Producción Diaria (bbl)</label>
+          <input pInputText id="daily_production" formControlName="daily_production" type="number" min="0" />
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <p-checkbox id="status" formControlName="status" binary="true"></p-checkbox>
+          <label for="status" style="margin-bottom: 0; cursor: pointer; font-weight: 500;">Activo</label>
+        </div>
+        <div style="text-align: right; margin-top: 0.5rem;">
+          <button pButton type="button" label="Cancelar" class="p-button-text" (click)="closeDialog()"></button>
+          <button pButton type="submit" label="Crear" class="p-button-primary" [disabled]="wellForm.invalid || loading"></button>
+        </div>
+      </form>
+    </p-dialog>
   </div>
 </main>

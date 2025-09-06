@@ -1,62 +1,80 @@
 :host {
-  display: block;
-  height: 100vh;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  width: 100%;
+  background: #f4f6fb;
 }
 
 .layout {
   display: flex;
   flex-direction: column;
   height: 100%;
+  box-shadow: 0 4px 24px rgba(60, 80, 120, 0.08);
+  border-radius: 18px;
+  margin: 2rem auto;
+  max-width: 1100px;
+  background: #7d7e83;
 
   .topbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #f8f9fa;
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    background:  #0014dc;
+    padding: 1.2rem 2.5rem;
+    box-shadow: 0 2px 8px rgba(60, 80, 120, 0.07);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
 
     .logo {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-
-      img {
-        height: 40px;
-        width: auto;
-      }
+      background-color: rgb(0 20 220 / var(--tw-bg-opacity));
 
       span {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #1976d2;
+        font-size: 1.7rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
       }
     }
 
     .mode {
-      color: #555;
-      font-size: 1rem;
+      color: #4b5563;
+      font-size: 1.05rem;
+      background: #7d7e83;
+      padding: 0.4rem 1.2rem;
+      border-radius: 16px;
+      font-weight: 500;
+      box-shadow: 0 1px 4px rgba(60, 80, 120, 0.07);
     }
   }
 
   .content {
     flex: 1;
-    padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    background: #7d7e83;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
 
     .manager-component {
       flex: 1;
       min-height: 400px;
+      background: #7d7e83;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px rgba(60, 80, 120, 0.06);
+      padding: 2rem 1.5rem;
     }
   }
 
   .footer {
     text-align: center;
     padding: 1rem;
-    background: #f8f9fa;
-    color: #555;
-    font-size: 0.9rem;
+    background: linear-gradient(90deg, #e3eafc 0%, #f4f6fb 100%);
+    color: #6b7280;
+    font-size: 0.95rem;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    box-shadow: 0 -1px 4px rgba(60, 80, 120, 0.04);
   }
 }

@@ -15,7 +15,7 @@ export class WellManagerService {
     return this.http.get<Well[]>(this.baseUrl);
   }
 
-  createWell(well: { name: string, status: string }): Observable<Well> {
+  createWell(well: Well): Observable<Well> {
     return this.http.post<Well>(this.baseUrl, well);
   }
 
