@@ -4,16 +4,16 @@ Aplicación de prueba técnica para gestionar pozos petroleros construida con An
 
 Primero debe clonarse el repositorio con:
 
-git clone <url-del-repositorio>
+- git clone https://github.com/pabseb22/oil-well-manager.git
 
 Este repositorio ya incluye el archivo de docker con las variables de ambientes para que todo se conecte de forma automática en el mismo repositorio. Para ejecutarlo al proyecto, se debe entrar en la carpeta raíz y correr el comando:
 
-cd oil-well-manager
-docker compose build
+- cd oil-well-manager
+- docker compose build
 
 Esto crea las imágenes e instala sus dependencias. Luego debe ejeceutarse:
 
-docker compose up
+- docker compose up
 
 Esto levantará automáticamente los contenedores de la base de datos, el backend y el frontend. Una vez finalizado, el backend estará disponible en http://localhost:3000 y el frontend en http://localhost:4200 y la base de datos de postgres en el puerto 5432. Dejando lista la aplicación para ser utilizada.
 
